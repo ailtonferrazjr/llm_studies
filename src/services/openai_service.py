@@ -1,9 +1,8 @@
 # Load Imports
-from typing import Iterable
+from typing import Iterable, Optional
 from openai import OpenAI
 from openai.types import ChatModel
 from openai.types.chat import ChatCompletionMessageParam
-from types import Optional
 from dataclasses import dataclass
 from common.logger import get_logger
 from config import OPENAI_KEY

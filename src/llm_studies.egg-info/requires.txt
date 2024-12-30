@@ -1,0 +1,5 @@
+openai
+beautifulsoup4
+requests
+selenium
+python-dotenv

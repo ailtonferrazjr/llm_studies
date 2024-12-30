@@ -1,1 +1,1 @@
-from .crawler import Website
+from utils.web.crawler import Website

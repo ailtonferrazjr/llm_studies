@@ -1,7 +1,8 @@
 #Import Packages
 from bs4 import BeautifulSoup
 import requests
-from types import Union, NoReturn
+from typing import Union
+from typing import NoReturn
 from config import BROWSER_HEADERS
 
 class WebsiteParser:

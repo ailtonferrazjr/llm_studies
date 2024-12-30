@@ -1,27 +1,16 @@
 # IMPORT PACKAGES
-import os
-from dotenv import load_dotenv
-from services import OpenAI
-from web_service import WebsiteParser
-
-
-load_dotenv()
-
-# CONSTANTS
-OPENAI_KEY = os.environ.get("OPENAI_API_KEY")
-BROWSER_HEADERS: dict[str, str] = {
- "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
-}
+from services.openai_service import OpenAIClient
+from services.web_service import WebsiteParser
 
 class Summarizer():
     def __init__(self, url):
-        self.url=url
-        pass
+        self.url = url
+        self.parsed_website = None  # Initialize the attribute here
 
     def main(self) -> None:
         self.parse_website()
         self.prepare_prompt()
-        self.run_summary()
+        return self.run_summary()  # Return the summary
 
     def parse_website(self) -> None:
         self.parsed_website = WebsiteParser(self.url)
@@ -31,12 +20,17 @@ class Summarizer():
         self.user_prompt: str = self.get_user_prompt()
 
     def get_user_prompt(self) -> str:
-        user_prompt = f"Website title: {self.parse_website.title}\n\n"
-        user_prompt += f"Website content: {self.parse_website.text}"
+        user_prompt = f"Website title: {self.parsed_website.title}\n\n"
+        user_prompt += f"Website content: {self.parsed_website.text}"
         return user_prompt
 
     def run_summary(self) -> None:
-        openai = OpenAI
-        
+        openai = OpenAIClient()
+        return openai.chat_request([
+            {"role": "system", "content": self.system_prompt}, 
+            {"role": "user", "content": self.user_prompt}
+        ])
 
-
+if __name__ == "__main__":
+    summ = Summarizer("https://www.globo.com")
+    print(summ.main())

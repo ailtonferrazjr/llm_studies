@@ -1,4 +1,5 @@
 # This is a crawler based in selenium and chromium webdriver, in order to extract the html from webpages
+# src/utils/web/crawler.py
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -25,7 +26,7 @@ class Website:
         driver = webdriver.Chrome(service=service, options=options)
         driver.get(url)
 
-        input("Please complete the verification in the browser and press Enter to continue...")
+        # input("Please complete the verification in the browser and press Enter to continue...")
         page_source = driver.page_source
         driver.quit()
 

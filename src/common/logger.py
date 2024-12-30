@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 class JSONFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         log_record = {
-            "timestamp": self.get_now(),
+            "timestamp": self.get_now().isoformat(),  # Convert to ISO format string
             "level": record.levelname,
             "service": record.name,
             "message": record.getMessage()
@@ -34,4 +34,3 @@ def get_logger(service_name: str) -> logging.Logger:
         logger.setLevel(logging.INFO)
 
     return logger
-
